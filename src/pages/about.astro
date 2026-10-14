@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Sobre | Personal Tech Lab" description="Apresentação do autor, interesses técnicos e forma de trabalhar em projetos e experimentos." currentPath="/about/">
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Sobre</div>
+      <h1>{siteConfig.author}</h1>
+      <p class="lead">Autoria, curiosidade técnica e um laboratório de ideias em desenvolvimento.</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container body-copy">
+      <div class="panel">
+        <p>Meu nome público é Gabriel Henrique. Este espaço funciona como laboratório pessoal para projetos, experimentos e artigos técnicos. A intenção é documentar decisões, aprender em público e transformar problemas reais em soluções úteis.</p>
+        <p>Os temas principais que podem aparecer aqui incluem automação, integrações, Python, ferramentas de desenvolvimento e exercícios práticos de engenharia e produtividade. O objetivo é manter o conteúdo útil, claro e honesto sobre o que foi testado, o que foi explorado e o que ainda precisa ser refinado.</p>
+        <p>O site não pretende inventar narrativa, histórico profissional ou métricas que não tenham sido confirmadas. Sempre que uma informação não estiver disponível, ela fica como pendência explícita e não se transforma em afirmação.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

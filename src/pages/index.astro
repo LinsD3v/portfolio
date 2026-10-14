@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Terminal from '../components/Terminal.astro';
+import { getCollection } from 'astro:content';
+
+const featuredProjects = (await getCollection('projects'))
+  .filter((project) => project.data.featured)
+  .sort((left, right) => new Date(right.data.pubDate || 0).getTime() - new Date(left.data.pubDate || 0).getTime())
+  .slice(0, 3);
+
+const recentArticles = (await getCollection('blog'))
+  .filter((article) => !article.data.draft)
+  .sort((left, right) => new Date(right.data.pubDate).getTime() - new Date(left.data.pubDate).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Gabriel Henrique | Personal Tech Lab" description="Desenvolvimento, automação e integrações. Problemas reais, soluções práticas e experimentos técnicos." currentPath="/">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-panel">
+        <div class="kicker">PERSONAL TECH LAB / ONLINE</div>
+        <h1>Construindo coisas. Expandindo limites.</h1>
+        <p class="lead">Desenvolvimento, automação e integrações. Problemas reais, soluções práticas e experimentos técnicos.</p>
+        <div class="button-row">
+          <a href="/projects/" class="button">Explorar projetos</a>
+          <a href="/blog/" class="button secondary">Ler artigos</a>
+          <a href="/contact/" class="button secondary">Entrar em contato</a>
+        </div>
+      </div>
+
+      <Terminal />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Projetos em destaque</h2>
+        <a href="/projects/">Ver todos</a>
+      </div>
+      <div class="card-grid">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Artigos recentes</h2>
+        <a href="/blog/">Ver blog</a>
+      </div>
+      <div class="card-grid">
+        {recentArticles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-block">
+    <div class="container">
+      <div class="panel">
+        <div class="kicker">Sobre</div>
+        <h2>Laboratório pessoal, conteúdo útil e decisões técnicas claras.</h2>
+        <p>Este espaço reúne experimentos, integrações e estudos de caso em automação, Python e desenvolvimento prático. O foco está em soluções úteis, exemplos reproduzíveis e documentação honesta sobre limites, trade-offs e aprendizados.</p>
+        <div class="button-row">
+          <a href="/about/" class="button secondary">Conhecer o autor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

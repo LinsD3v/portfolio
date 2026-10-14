@@ -1,0 +1,47 @@
+---
+const { pathname = '/' } = Astro.props;
+const navItems = [
+  { href: '/', label: 'Início', exact: true },
+  { href: '/about/', label: 'Sobre' },
+  { href: '/projects/', label: 'Projetos' },
+  { href: '/blog/', label: 'Artigos' },
+  { href: '/contact/', label: 'Contato' },
+];
+---
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="brand" aria-label="Página inicial do Personal Tech Lab">
+      <span class="brand-mark">GH</span>
+      <span>Gabriel Henrique</span>
+      <span class="brand-detail">/ Personal Tech Lab</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      Menu
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+      {navItems.map((item) => {
+        const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
+        return (
+          <a href={item.href} class={isActive ? 'active' : ''}>
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  const navToggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('is-open');
+    });
+  }
+</script>

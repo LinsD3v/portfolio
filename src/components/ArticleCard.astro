@@ -1,0 +1,18 @@
+---
+const { article } = Astro.props;
+const articleDate = article.data.pubDate ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(article.data.pubDate)) : 'Data pendente';
+---
+<article class="card">
+  <div class="card-top">
+    <span class="badge">{article.data.tags[0] || 'Artigo'}</span>
+    <span class="badge accent">{articleDate}</span>
+  </div>
+  <h3><a href={`/blog/${article.id}/`}>{article.data.title}</a></h3>
+  <p>{article.data.description}</p>
+  <ul class="tag-list">
+    {(article.data.tags || []).slice(0, 3).map((tag) => <li>{tag}</li>)}
+  </ul>
+  <div class="card-actions">
+    <a href={`/blog/${article.id}/`} class="button secondary">Ler artigo</a>
+  </div>
+</article>

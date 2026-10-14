@@ -1,0 +1,27 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const { title, description, pubDate, updatedDate, tags = [], pathname = Astro.url.pathname, author = 'Gabriel Henrique' } = Astro.props;
+const formattedDate = pubDate ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(pubDate)) : 'Data pendente';
+const formattedUpdatedDate = updatedDate ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(updatedDate)) : undefined;
+---
+<BaseLayout title={title} description={description} currentPath={pathname}>
+  <article class="article-shell">
+    <Breadcrumbs items={[{ label: 'Artigos', href: '/blog/' }, { label: title }]} />
+    <header class="article-header">
+      <div class="kicker">Artigo técnico</div>
+      <h1>{title}</h1>
+      <div class="article-meta">
+        <span>Por {author}</span>
+        <span>{formattedDate}</span>
+        {formattedUpdatedDate ? <span>Atualizado em {formattedUpdatedDate}</span> : null}
+        <span>~ 4 min de leitura</span>
+      </div>
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

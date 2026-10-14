@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((entry) => !entry.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id } }));
+}
+
+const { slug } = Astro.params;
+const articleEntries = (await getCollection('blog')).filter((entry) => !entry.data.draft);
+const article = articleEntries.find((entry) => entry.id === slug);
+
+if (!article) {
+  throw new Error(`Blog post not found: ${slug}`);
+}
+
+const { Content } = await render(article);
+const formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(article.data.pubDate));
+---
+
+<BaseLayout title={`${article.data.title} | Personal Tech Lab`} description={article.data.description} currentPath={`/blog/${slug}/`}>
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Artigo</div>
+      <h1>{article.data.title}</h1>
+      <p class="lead">{article.data.description}</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container">
+      <article class="article-shell">
+        <div class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Início</a>
+          <span aria-hidden="true">/</span>
+          <a href="/blog/">Artigos</a>
+          <span aria-hidden="true">/</span>
+          <span>{article.data.title}</span>
+        </div>
+
+        <header class="article-header">
+          <div class="article-meta">
+            <span>Por {article.data.author}</span>
+            <span>{formattedDate}</span>
+            <span>~ 4 min de leitura</span>
+          </div>
+          {(article.data.tags || []).length ? (
+            <ul class="tag-list" style="margin-top: 1rem;">
+              {article.data.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          ) : null}
+        </header>
+
+        <div class="prose">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

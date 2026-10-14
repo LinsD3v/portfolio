@@ -1,0 +1,32 @@
+{
+  "name": "personal-tech-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "check": "astro check",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "keywords": [
+    "astro",
+    "portfolio",
+    "technical-lab",
+    "personal-site"
+  ],
+  "author": "Gabriel Henrique",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.5",
+    "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

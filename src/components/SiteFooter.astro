@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '../config/site';
+---
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>{siteConfig.author}</strong>
+      <div class="meta-list">
+        <span>{siteConfig.siteName}</span>
+        <span>SVG, Python, automação e integrações</span>
+      </div>
+    </div>
+    <div class="meta-list" aria-label="Links de contato e redes sociais">
+      {siteConfig.email ? <a href={`mailto:${siteConfig.email}`}>E-mail</a> : <span>E-mail pendente</span>}
+      {siteConfig.githubUrl ? <a href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a> : <span>GitHub pendente</span>}
+      {siteConfig.linkedinUrl ? <a href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a> : <span>LinkedIn pendente</span>}
+    </div>
+  </div>
+</footer>

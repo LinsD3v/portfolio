@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('blog'))
+  .filter((article) => !article.data.draft)
+  .sort((left, right) => new Date(right.data.pubDate).getTime() - new Date(left.data.pubDate).getTime());
+---
+
+<BaseLayout title="Artigos | Personal Tech Lab" description="Artigos técnicos e tutoriais sobre desenvolvimento, automação e integrações." currentPath="/blog/">
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Artigos</div>
+      <h1>Notas técnicas, guias e observações práticas.</h1>
+      <p class="lead">Este é o índice editorial do laboratório. Os textos aqui presentes funcionam como base para o formato do blog e serão substituídos por peças reais conforme forem publicadas.</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container">
+      <div class="card-grid">
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,8 @@
+Listagem de caminhos de pasta
+O número de série do volume é 5C89-7725
+C:\DEVCENTER\PORTFOLIO\PUBLIC
+    favicon.svg
+    robots.txt
+    
+Não existem subpastas 
+

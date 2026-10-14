@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((left, right) => new Date(right.data.pubDate || 0).getTime() - new Date(left.data.pubDate || 0).getTime());
+---
+
+<BaseLayout title="Projetos | Personal Tech Lab" description="Lista de projetos, estudos de caso e experimentos técnicos do laboratório pessoal." currentPath="/projects/">
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Projetos</div>
+      <h1>Estudos de caso e experimentos em desenvolvimento.</h1>
+      <p class="lead">Os itens desta página representam a estrutura do portfólio e, quando houver conteúdo real confirmado, serão substituídos por projetos do autor.</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container">
+      <div class="card-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

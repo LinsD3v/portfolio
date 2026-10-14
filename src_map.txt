@@ -1,0 +1,50 @@
+Listagem de caminhos de pasta
+O número de série do volume é 5C89-7725
+C:\DEVCENTER\PORTFOLIO\SRC
+|   content.config.ts
+|   env.d.ts
+|   
++---components
+|       ArticleCard.astro
+|       Breadcrumbs.astro
+|       ProjectCard.astro
+|       SeoHead.astro
+|       SiteFooter.astro
+|       SiteHeader.astro
+|       Terminal.astro
+|       
++---config
+|       site.ts
+|       
++---content
+|   +---blog
+|   |       automatizando-pdfs-com-python-no-windows.md
+|   |       consumindo-apis-rest-com-python.md
+|   |       
+|   \---projects
+|           automacao-operacional.md
+|           estrutura-laboratorio-pessoal.md
+|           
++---layouts
+|       ArticleLayout.astro
+|       BaseLayout.astro
+|       
++---pages
+|   |   404.astro
+|   |   about.astro
+|   |   contact.astro
+|   |   index.astro
+|   |   sitemap.xml.ts
+|   |   
+|   +---blog
+|   |       index.astro
+|   |       [slug].astro
+|   |       
+|   \---projects
+|           index.astro
+|           [slug].astro
+|           
+\---styles
+        global.css
+        tokens.css
+        

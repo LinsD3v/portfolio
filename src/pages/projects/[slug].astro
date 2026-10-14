@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id } }));
+}
+
+const { slug } = Astro.params;
+const projectEntries = await getCollection('projects');
+const project = projectEntries.find((entry) => entry.id === slug);
+
+if (!project) {
+  throw new Error(`Project not found: ${slug}`);
+}
+
+const { Content } = await render(project);
+const formattedDate = project.data.pubDate ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(new Date(project.data.pubDate)) : 'Data pendente';
+---
+
+<BaseLayout title={`${project.data.title} | Personal Tech Lab`} description={project.data.description} currentPath={`/projects/${slug}/`}>
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Estudo de caso</div>
+      <h1>{project.data.title}</h1>
+      <p class="lead">{project.data.description}</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container">
+      <article class="article-shell">
+        <div class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Início</a>
+          <span aria-hidden="true">/</span>
+          <a href="/projects/">Projetos</a>
+          <span aria-hidden="true">/</span>
+          <span>{project.data.title}</span>
+        </div>
+
+        <header class="article-header">
+          <div class="article-meta">
+            <span>{formattedDate}</span>
+            <span>{project.data.status ? project.data.status : 'experimental'}</span>
+          </div>
+          {(project.data.tags || []).length ? (
+            <ul class="tag-list" style="margin-top: 1rem;">
+              {project.data.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          ) : null}
+        </header>
+
+        <div class="prose">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

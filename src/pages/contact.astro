@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Contato | Personal Tech Lab" description="Página de contato do laboratório pessoal, com referências de contato e informações pendentes." currentPath="/contact/">
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker">Contato</div>
+      <h1>Converse sobre projetos, ideias e oportunidades.</h1>
+      <p class="lead">A comunicação é simples e direta. Quando os dados do autor forem confirmados, este espaço será atualizado com os links reais.</p>
+    </div>
+  </section>
+
+  <section class="page-block">
+    <div class="container">
+      <div class="contact-box">
+        <h3>Informações públicas disponíveis</h3>
+        <ul class="contact-list">
+          <li><strong>E-mail:</strong> {siteConfig.email || 'Aguardando confirmação do autor.'}</li>
+          <li><strong>GitHub:</strong> {siteConfig.githubUrl || 'Aguardando link público.'}</li>
+          <li><strong>LinkedIn:</strong> {siteConfig.linkedinUrl || 'Aguardando link público.'}</li>
+        </ul>
+        <p class="contact-meta">Este site não exige formulário de contato com backend no MVP. O foco está em conteúdo útil, links reais e oportunidades que possam surgir a partir do material publicado.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 | Personal Tech Lab" description="Página não encontrada." currentPath="/404/">
+  <section class="page-hero">
+    <div class="container">
+      <div class="not-found">
+        <div class="kicker">404</div>
+        <h1>Página não encontrada.</h1>
+        <p>O conteúdo solicitado não está disponível nesta rota. Você pode voltar ao início ou explorar os projetos e artigos do laboratório.</p>
+        <div class="button-row">
+          <a href="/" class="button">Voltar ao início</a>
+          <a href="/projects/" class="button secondary">Projetos</a>
+          <a href="/blog/" class="button secondary">Artigos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

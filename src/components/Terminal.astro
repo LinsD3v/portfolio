@@ -1,0 +1,62 @@
+<div class="terminal" aria-label="Terminal interativo de demonstração">
+  <div class="terminal-header" aria-hidden="true">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+  <div id="terminal-output" class="terminal-output" role="log" aria-live="polite">
+    <div><span class="prompt">guest@personal-tech-lab:~$</span> help</div>
+    <div>Comandos disponíveis: help, about, projects, blog, contact, clear, whoami</div>
+  </div>
+  <div class="terminal-input-row">
+    <label for="terminal-command" class="prompt">guest@personal-tech-lab:~$</label>
+    <input id="terminal-command" name="terminal-command" type="text" autocomplete="off" spellcheck="false" aria-label="Digite um comando do terminal" placeholder="Digite um comando" />
+  </div>
+</div>
+
+<script is:inline>
+  const output = document.getElementById('terminal-output');
+  const input = document.getElementById('terminal-command');
+
+  const commands = {
+    help: 'Comandos disponíveis: help, about, projects, blog, contact, clear, whoami',
+    about: 'Resumo: Gabriel Henrique e o Personal Tech Lab. Veja mais em /about/.',
+    projects: 'Projetos em destaque: estudo de caso e experimentos. Veja /projects/.',
+    blog: 'Artigos recentes sobre automação, APIs e integrações. Veja /blog/.',
+    contact: 'Contato: e-mail e redes sociais pendentes de confirmação do autor.',
+    whoami: 'Gabriel Henrique',
+    clear: 'clear',
+  };
+
+  function addLine(text, className = '') {
+    const line = document.createElement('div');
+    if (className) line.className = className;
+    line.innerHTML = text;
+    output.appendChild(line);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+
+    const value = input.value.trim();
+    if (!value) return;
+
+    const normalized = value.toLowerCase();
+    addLine(`<span class="prompt">guest@personal-tech-lab:~$</span> <span class="command">${value}</span>`, 'command');
+
+    if (normalized === 'clear') {
+      output.innerHTML = '';
+      input.value = '';
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(commands, normalized)) {
+      addLine(commands[normalized]);
+    } else {
+      addLine(`Comando não reconhecido: "${value}". Digite "help" para ver as opções.`, 'error');
+    }
+
+    input.value = '';
+  });
+</script>
